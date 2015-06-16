@@ -1,0 +1,51 @@
+﻿@using PagedList
+@using PagedList.Mvc
+
+@model IPagedList<StoryBoard.ViewModels.StoryViewModel>
+
+@{
+    ViewBag.Title = "My Stories";
+}
+
+<h2>My Stories</h2>
+
+@Html.ActionLink("Post a new Story", "Create", null, new { @class = "btn btn-primary" })
+
+<br /><br />
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="menu-category list-group">
+            <p class="list-group-item list-group-item-heading">@item.Title</p>
+
+            <p class="list-group-item">Posted on: @item.PostedOn </p>
+
+            @Html.ActionLink("Details", "Details", new { storyId = item.StoryId }, new { style = "margin:0px 0px 0px 15px" })
+            @Html.ActionLink("Edit", "Edit", new { storyId = item.StoryId }, new { style = "margin: 0px 0px 0px 5px" })
+            @Html.ActionLink("Delete", "Delete", new { storyId = item.StoryId }, new { style = "margin: 0px 0px 0px 5px" })
+        </div>
+    }
+</div>
+<div class="col-xs-12">
+    <div class="center-block">
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+                                new { page, pageSize = Model.PageSize }), PagedListRenderOptions.PageNumbersOnly)
+
+        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage
+        of @Model.TotalItemCount Groups
+    </div>
+</div>
+
+
+
+
+
+
+<style>
+    *, *:before, *:after { box-sizing: border-box !important; }
+
+    .row { -moz-column-width: 20em; -webkit-column-width: 20em; -moz-column-gap: 1em; -webkit-column-gap: 1em; }
+
+    .menu-category { background-color: #4E5D6C; display: inline-block; margin: 0px 0px 14px 0px; padding: 0rem; width: 100%; height: 150px; }
+</style>

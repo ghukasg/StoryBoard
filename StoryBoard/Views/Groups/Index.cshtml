@@ -1,0 +1,59 @@
+﻿@using PagedList
+@using PagedList.Mvc
+
+@model IPagedList<StoryBoard.ViewModels.GroupViewModel>
+
+@{
+    ViewBag.Title = "Groups";
+}
+
+<h2>Groups</h2>
+
+@Html.ActionLink("Add new Group", "Create", null, new { @class = "btn btn-primary" })
+
+<br /><br />
+
+<div>
+    <table class="table table-striped table-hover ">
+        <thead class="danger">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Number of Members</th>
+                <th>Number of Stories</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.NumberOfMembers</td>
+                    <td>@item.NumberOfStories</td>
+                    <td>
+                        @(item.IsMember ?
+                        Html.ActionLink("View Stories", "ViewStories", new { groupId = @item.GroupId }) :
+                        Html.ActionLink("Join", "Join", new { groupId = @item.GroupId }))
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <div class="col-xs-12">
+                        <div class="center-block">
+                            @Html.PagedListPager(Model, page => Url.Action("Index",
+                                new { page, pageSize = Model.PageSize }), PagedListRenderOptions.PageNumbersOnly)
+
+                            Showing @Model.FirstItemOnPage to @Model.LastItemOnPage
+                            of @Model.TotalItemCount Groups
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

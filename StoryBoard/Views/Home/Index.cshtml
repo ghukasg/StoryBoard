@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Welcome to Story Board</h1>
+    <p class="lead">Story Board is a free web platform for sharing great Stories and meet people with same iterests.</p>
+    @if (Request.IsAuthenticated)
+    {
+        <p><a href="/MyStories/Create" class="btn btn-primary btn-lg">Start Posting &raquo;</a>
+        </p>
+    }
+    else
+    {
+        <p>
+            <a href="/Account/Login" class="btn btn-primary btn-lg">Sign In &raquo;</a>
+            <a href="/Account/Register" class="btn btn-primary btn-lg">Join Us &raquo;</a>
+        </p>
+    }
+</div>

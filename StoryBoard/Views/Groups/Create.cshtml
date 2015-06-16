@@ -1,0 +1,40 @@
+﻿@model StoryBoard.ViewModels.GroupViewModel
+
+@{
+    ViewBag.Title = "Create new Group";
+}
+
+<h2>Create new Group</h2>
+
+@using (Html.BeginForm("Create", "Groups", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new story.</h4>
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+        </div>
+    </div>
+
+    @Html.HiddenFor(m => m.GroupId)
+    @Html.HiddenFor(m => m.NumberOfMembers)
+    @Html.HiddenFor(m => m.NumberOfStories)
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Create" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
